@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Monthsary ❤️</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, #ff9a9e, #fad0c4);
+            color: #fff;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-top: 20px;
+            animation: fadeIn 2s ease;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin: 10px 20px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            margin: 20px 10px;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            color: #ff6b6b;
+            background: #fff;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #ff6b6b;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            color: #333;
+            text-align: center;
+            max-width: 500px;
+            width: 80%;
+        }
+
+        .modal button {
+            background-color: #ff6b6b;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .modal button:hover {
+            background-color: #ff4c4c;
+        }
+
+        /* Slideshow */
+        .slideshow-container {
+            position: relative;
+            margin: auto;
+            max-width: 600px;
+            display: none;
+        }
+
+        .slideshow-image {
+            width: 100%;
+            border-radius: 15px;
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+        /* Countdown */
+        .countdown {
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+
+        /* Floating Hearts */
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            clip-path: polygon(50% 0%, 0% 50%, 50% 100%, 100% 50%);
+            animation: float 8s linear infinite;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(-10vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            .btn {
+                font-size: 1rem;
+            }
+
+            .countdown {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hearts" id="hearts"></div>
+    <div class="container">
+        <h1>Happy Monthsary! ❤️</h1>
+        <p>Thank you for being the light of my life. Here's something special for you!</p>
+
+        <button class="btn" onclick="showMessage()">Special Message</button>
+        <button class="btn" onclick="playSong()">Play Our Song 🎵</button>
+        <button class="btn" onclick="startSlideshow()">View Memories 📸</button>
+        <button class="btn" onclick="showCountdown()">Countdown ⏳</button>
+        <button class="btn" onclick="createCard()">Create a Card 🖌️</button>
+
+        <!-- Countdown -->
+        <div class="countdown" id="countdown" style="display: none;"></div>
+
+        <!-- Slideshow -->
+        <div class="slideshow-container" id="slideshow-container">
+            <img class="slideshow-image" src="7d0c99e5-f3bb-4ec6-803b-761b0d8db239.jpg" alt="Memory 1">
+            <img class="slideshow-image" src="0571a7c2-a6fb-40fc-9184-5586505a6ee1.jpg" alt="Memory 2">
+            <img class="slideshow-image" src="6220d127-5445-46aa-b0ee-895b8add6aa8.jpg" alt="Memory 3">
+            <img class="slideshow-image" src="a59627ac-4d21-4714-88dd-9f65fdc7213f.jpg" alt="Memory 4">
+        </div>
+    </div>
+
+    <!-- Modal for Special Message -->
+    <div id="specialMessageModal" class="modal">
+        <div class="modal-content">
+            <p id="specialMessageText">You are my everything, and I’ll always cherish every moment with you. Happy
+                Monthsary, love! ❤️</p>
+            <button onclick="closeModal('specialMessageModal')">Close</button>
+        </div>
+    </div>
+
+    <!-- Modal for Card Creation -->
+    <div id="createCardModal" class="modal">
+        <div class="modal-content">
+            <textarea id="cardMessage" placeholder="Write your special message here..." rows="4"
+                style="width: 100%; padding: 10px;"></textarea>
+            <button onclick="saveCard()">Save Card</button>
+            <button onclick="closeModal('createCardModal')">Close</button>
+        </div>
+    </div>
+
+    <!-- Live Time Display -->
+    <div class="live-time" id="live-time"></div>
+
+    <!-- Background Music -->
+    <audio id="loveSong"
+        src="Paul Hapita - Sun And Moon X Oh, Binibini (Lyrics)  Oh, binibini napaka ganda naman ng yong mata.mp3"
+        preload="auto"></audio>
+
+    <script>
+        // Floating Hearts Animation
+        function generateHearts() {
+            const heartsContainer = document.getElementById("hearts");
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement("div");
+                heart.className = "heart";
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDelay = Math.random() * 4 + "s";
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        // Show Special Message
+        function showMessage() {
+            const modal = document.getElementById("specialMessageModal");
+            modal.style.display = "flex";
+        }
+
+        // Close Modal
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = "none";
+        }
+
+        // Play Music
+        function playSong() {
+            const song = document.getElementById("loveSong");
+            song.play();
+        }
+
+        // Slideshow
+        let currentSlide = 0;
+
+        function startSlideshow() {
+            const slides = document.querySelectorAll(".slideshow-image");
+            const slideshowContainer = document.getElementById("slideshow-container");
+            slideshowContainer.style.display = "block";
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.remove("active");
+                    if (i === index) slide.classList.add("active");
+                });
+            }
+
+            showSlide(currentSlide);
+
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }, 2000);
+        }
+
+        function showCountdown() {
+            const countdown = document.getElementById("countdown");
+            countdown.style.display = "block";
+
+            // Set the target date to midnight tonight (00:00:00)
+            const now = new Date();
+            const nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+
+            function updateCountdown() {
+                const currentTime = new Date();
+                const diff = nextMidnight - currentTime;
+
+                if (diff <= 0) {
+                    countdown.innerText = "Happy Monthsary!";
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                countdown.innerText = `Next Monthsary: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
+
+            // Start the countdown immediately
+            updateCountdown();
+
+            // Update every second
+            setInterval(updateCountdown, 1000);
+        }
+
+        // Card Creator
+        function createCard() {
+            const cardText = prompt("Write a special message for your card:");
+            if (cardText) {
+                alert(`Your card is ready! Message: "${cardText}"`);
+            }
+        }
+
+
+        // Initialize Hearts
+        generateHearts();
+
+        // Live Time Display
+        function displayLiveTime() {
+            const liveTimeElement = document.getElementById("live-time");
+
+            function updateTime() {
+                const now = new Date();
+                liveTimeElement.innerText = `Current Time: ${now.toLocaleTimeString()}`;
+            }
+
+            // Update every second
+            setInterval(updateTime, 1000);
+        }
+
+        // Initialize Hearts and Live Time
+        generateHearts();
+        displayLiveTime();
+    </script>
+</body>
+
+</html>
